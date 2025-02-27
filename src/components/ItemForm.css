@@ -1,0 +1,29 @@
+.form-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 64px);
+}
+
+.form-paper {
+  padding: 24px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.submit-btn {
+  flex: 1;
+  margin-right: 8px !important;
+}
+
+.scan-again-btn {
+  flex: 1;
+  margin-left: 8px !important;
+}

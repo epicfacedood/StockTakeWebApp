@@ -1,0 +1,60 @@
+.scanner-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 64px);
+}
+
+.scanner-paper {
+  padding: 24px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-container {
+  width: 100%;
+  margin: 16px 0;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3;
+}
+
+.scanner-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.manual-entry-btn {
+  margin-top: 16px !important;
+  width: 100%;
+}
+
+.scanning-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.torch-toggle {
+  margin-bottom: 16px !important;
+}
+
+@media (max-width: 600px) {
+  .scanner-paper {
+    padding: 16px;
+  }
+
+  .video-container {
+    height: 50vh;
+    max-height: 400px;
+  }
+}
