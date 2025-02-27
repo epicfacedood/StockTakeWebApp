@@ -1,31 +1,16 @@
 import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import BarcodeScanner from "./components/BarcodeScanner";
-import QuaggaScanner from "./components/QuaggaScanner";
-import ImageUploadScanner from "./components/ImageUploadScanner";
-import Html5Scanner from "./components/Html5Scanner";
+import ZXingScanner from "./components/ZXingScanner";
 import ItemForm from "./components/ItemForm";
 import Header from "./components/Header";
-import {
-  Box,
-  ToggleButtonGroup,
-  ToggleButton,
-  Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import "./App.css";
 
 function App() {
   const [scannedData, setScannedData] = useState(null);
-  const [scannerType, setScannerType] = useState("html5"); // Default to html5 scanner
   const navigate = useNavigate();
 
-  const handleScannerChange = (event, newScannerType) => {
-    if (newScannerType !== null) {
-      setScannerType(newScannerType);
-    }
-  };
-
-  const handleQuaggaScan = (barcodeValue) => {
+  const handleScan = (barcodeValue) => {
     console.log("Scan successful:", barcodeValue);
 
     // Set the scanned data
@@ -37,8 +22,7 @@ function App() {
       looseCartonQuantity: "",
     });
 
-    // Use React Router's navigate instead of window.location
-    // This preserves state between component transitions
+    // Navigate to the item form
     navigate("/item-form");
   };
 
@@ -51,38 +35,7 @@ function App() {
           path="/"
           element={
             <>
-              <Box
-                sx={{ display: "flex", justifyContent: "center", mt: 2, mb: 1 }}
-              >
-                <ToggleButtonGroup
-                  value={scannerType}
-                  exclusive
-                  onChange={handleScannerChange}
-                  aria-label="scanner type"
-                  size="small"
-                >
-                  <ToggleButton value="zxing" aria-label="ZXing scanner">
-                    Default Scanner
-                  </ToggleButton>
-                  <ToggleButton value="html5" aria-label="HTML5 scanner">
-                    Code-128 Scanner
-                  </ToggleButton>
-                  <ToggleButton
-                    value="upload"
-                    aria-label="Image upload scanner"
-                  >
-                    Photo Upload
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </Box>
-
-              {scannerType === "zxing" ? (
-                <BarcodeScanner setScannedData={setScannedData} />
-              ) : scannerType === "html5" ? (
-                <Html5Scanner onScan={handleQuaggaScan} />
-              ) : (
-                <ImageUploadScanner onScan={handleQuaggaScan} />
-              )}
+              <ZXingScanner onScan={handleScan} />
 
               <Box sx={{ p: 2, mb: 2, bgcolor: "#f5f5f5", borderRadius: 1 }}>
                 <Typography variant="body2" color="text.secondary">

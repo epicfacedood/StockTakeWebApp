@@ -11,6 +11,7 @@ import {
   IconButton,
   Snackbar,
   Alert,
+  Tooltip,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -59,27 +60,23 @@ const ItemForm = ({ scannedData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitting data:", formData);
+    console.log("Form submitted:", formData);
 
-    // Here you would typically send the data to your backend
-    // For now, we'll just show a success message
+    // Show success notification
     setNotification({
       open: true,
-      message: "Item data saved successfully!",
+      message: "Item saved successfully!",
       severity: "success",
     });
 
     // Reset form after submission
-    setTimeout(() => {
-      setFormData({
-        initWhLane: "",
-        itemNo: "",
-        expirationDate: null,
-        noOfCarton: "",
-        looseCartonQuantity: "",
-      });
-      navigate("/");
-    }, 2000);
+    setFormData({
+      initWhLane: "",
+      itemNo: "",
+      expirationDate: null,
+      noOfCarton: "",
+      looseCartonQuantity: "",
+    });
   };
 
   const handleCloseNotification = () => {
@@ -89,7 +86,9 @@ const ItemForm = ({ scannedData }) => {
     });
   };
 
+  // This function will navigate back to the scanner page
   const handleScanAgain = () => {
+    console.log("Navigating back to scanner page");
     navigate("/");
   };
 
@@ -100,13 +99,12 @@ const ItemForm = ({ scannedData }) => {
           <Typography variant="h5" gutterBottom>
             Item Details
           </Typography>
-
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Init WH Lane"
+                  label="WH Lane"
                   name="initWhLane"
                   value={formData.initWhLane}
                   onChange={handleChange}
@@ -114,9 +112,11 @@ const ItemForm = ({ scannedData }) => {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton onClick={handleScanAgain}>
-                          <QrCodeScannerIcon />
-                        </IconButton>
+                        <Tooltip title="Scan new barcode">
+                          <IconButton onClick={handleScanAgain} color="primary">
+                            <QrCodeScannerIcon />
+                          </IconButton>
+                        </Tooltip>
                       </InputAdornment>
                     ),
                   }}
@@ -142,7 +142,12 @@ const ItemForm = ({ scannedData }) => {
                   renderInput={(params) => (
                     <TextField {...params} fullWidth required />
                   )}
-                  slotProps={{ textField: { fullWidth: true, required: true } }}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      required: true,
+                    },
+                  }}
                 />
               </Grid>
 
@@ -155,6 +160,12 @@ const ItemForm = ({ scannedData }) => {
                   value={formData.noOfCarton}
                   onChange={handleChange}
                   required
+                  inputProps={{
+                    inputMode: "numeric",
+                    pattern: "[0-9]*",
+                    min: "0",
+                    step: "1",
+                  }}
                 />
               </Grid>
 
@@ -167,6 +178,12 @@ const ItemForm = ({ scannedData }) => {
                   value={formData.looseCartonQuantity}
                   onChange={handleChange}
                   required
+                  inputProps={{
+                    inputMode: "numeric",
+                    pattern: "[0-9]*",
+                    min: "0",
+                    step: "1",
+                  }}
                 />
               </Grid>
 

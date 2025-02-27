@@ -1,16 +1,16 @@
 .scanner-container {
-  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 64px);
+  padding: 16px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .scanner-paper {
-  padding: 24px;
+  padding: 20px;
   width: 100%;
-  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,12 +18,12 @@
 
 .video-container {
   width: 100%;
-  margin: 16px 0;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
+  min-height: 350px;
+  margin-bottom: 16px;
   position: relative;
-  aspect-ratio: 4/3;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .scanner-video {
@@ -34,27 +34,46 @@
 
 .manual-entry-btn {
   margin-top: 16px !important;
-  width: 100%;
 }
 
 .scanning-indicator {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 24px 0;
+  margin: 16px 0;
 }
 
 .torch-toggle {
   margin-bottom: 16px !important;
 }
 
+/* Make sure the HTML5 QR scanner is visible */
+#reader {
+  width: 100% !important;
+  min-height: 350px !important;
+  border: none !important;
+}
+
+#reader video {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 350px !important;
+  object-fit: cover !important;
+}
+
+/* Fix for some mobile browsers */
+#reader__scan_region {
+  width: 100% !important;
+  min-height: 300px !important;
+}
+
+/* Make sure the scanner UI is visible on mobile */
 @media (max-width: 600px) {
-  .scanner-paper {
-    padding: 16px;
+  .scanner-container {
+    padding: 8px;
   }
 
   .video-container {
-    height: 50vh;
-    max-height: 400px;
+    min-height: 300px;
   }
 }
